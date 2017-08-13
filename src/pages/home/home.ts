@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
+import { ModalController, AlertController } from 'ionic-angular';
 import { MessagingServiceProvider } from '../../providers/messaging-service/messaging-service';
 import { LoggerServiceProvider } from '../../providers/logger-service/logger-service';
 
@@ -16,7 +17,7 @@ export class HomePage {
   messagesReceivedAsync: any;
   messagesSentAsync: any;
   constructor(public navCtrl: NavController, private messagingService: MessagingServiceProvider,
-    private _logger: LoggerServiceProvider) {
+    private _logger: LoggerServiceProvider,private modalCtrl: ModalController, public alertCtrl: AlertController) {
     this.initializeApp();
   }
 
@@ -31,6 +32,31 @@ export class HomePage {
     refresher.complete();
     this.getReceivedMessages();
     this.getSentMessages();
+  }
+
+  reply(message) {
+    this._logger.log("HomePage: reply - message", message);
+    let user = {
+      "email": "<< Anonymous >>",
+      "key": message.sender_key,
+      "originalMessage": message.message
+    }
+    let modal = this.modalCtrl.create("ModalPage", { user: user });
+    modal.onDidDismiss(data => {
+      if(data) {
+        let alert = this.alertCtrl.create({
+          message: "Message sent succesfully",
+          buttons: [
+            {
+              text: "Ok",
+              role: 'cancel'
+            }
+          ]
+        });
+        alert.present();
+      }
+    });
+    modal.present();
   }
 
   getReceivedMessages(refresher?) {

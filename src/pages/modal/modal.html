@@ -28,11 +28,15 @@
     <img class="avatar" src="http://placehold.it/100x100">
     <div>{{ user.email }}</div>
   </section>
+  <section *ngIf="user.email == '<< Anonymous >>'">
+    <h6>Original Message:</h6>
+    {{ user.originalMessage }}
+  </section>
   <ion-list no-lines>
+    <ion-textarea [(ngModel)]="message" rows="10" name="messageBox" placeholder="Enter the message you want to send"></ion-textarea>
     <ion-item text-wrap>
-      <ion-label>Can {{ user.email }} reply?</ion-label>
+      <ion-label>Can {{ user.email }} reply to you?</ion-label>
       <ion-checkbox color="primary" [(ngModel)]="canReply"></ion-checkbox>
     </ion-item>
   </ion-list>
-  <ion-textarea [(ngModel)]="message" rows="10" name="messageBox" placeholder="Enter the message you want to send"></ion-textarea>
 </ion-content>

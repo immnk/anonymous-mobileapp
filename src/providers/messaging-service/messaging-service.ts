@@ -39,8 +39,8 @@ export class MessagingServiceProvider {
     if (user) {
       let query = {
         query: {
-          orderByChild: 'receiver_email',
-          equalTo: user["email"]
+          orderByChild: 'receiver_key',
+          equalTo: user["uid"]
         }
       }
       returnRef = this.db.getAsyncListData("/messages", query);
