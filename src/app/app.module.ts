@@ -18,10 +18,12 @@ import { LoggerServiceProvider } from '../providers/logger-service/logger-servic
 import { AppConfig, APP_DI_CONFIG, APP_CONFIG_TOKEN } from '../providers/utils-service/config-service';
 import { MessagingServiceProvider } from '../providers/messaging-service/messaging-service';
 
+
 @NgModule({
   declarations: [
     MyApp,
-    TabsPage
+    TabsPage,
+
   ],
   imports: [
     BrowserModule,

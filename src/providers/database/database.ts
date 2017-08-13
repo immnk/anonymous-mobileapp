@@ -65,7 +65,7 @@ export class DatabaseProvider {
     return promise;
   }
 
-  getAsyncListData(key: string,_query: object = {}): FirebaseListObservable<any> {
+  getAsyncListData(key: string,_query: object = {}): FirebaseListObservable<any[]> {
     return this.db.list(key, _query);
   }
 }

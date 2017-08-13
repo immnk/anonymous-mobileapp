@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { SortPipe } from './../pipes/sort/sort';
+import { TimeSincePipe } from './../pipes/time-since/time-since';
 @NgModule({
-	declarations: [SortPipe],
+	declarations: [SortPipe,
+    TimeSincePipe],
 	imports: [],
-	exports: [SortPipe]
+	exports: [SortPipe,
+    TimeSincePipe]
 })
 export class PipesModule {}

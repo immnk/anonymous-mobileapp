@@ -49,7 +49,7 @@ export class MessagingServiceProvider {
     return returnRef;
   }
 
-  getAllSentMessagesInAsync(): FirebaseListObservable<any> {
+  getAllSentMessagesInAsync(): FirebaseListObservable<any[]> {
     let returnRef: FirebaseListObservable<any>;
     let user = this.auth.isAuthenticated();
     if (user) {

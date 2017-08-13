@@ -22,20 +22,20 @@
   </ion-refresher>
   <div *ngIf="viewMessageType == 'received'">
     <ion-list>
-      <ion-card *ngFor="let message of messagesReceivedAsync | async">
+      <ion-card *ngFor="let message of ( messagesReceivedAsync | async | sort: 'desc' )">
         <ion-card-content>
           {{message.message}}
         </ion-card-content>
         <ion-row>
           <ion-col>
-            <button ion-button icon-left clear small>
+            <button ion-button icon-left clear small [disabled]="message.sender_key == '' ">
               <ion-icon name="undo"></ion-icon>
               <div>Reply</div>
             </button>
           </ion-col>
-          <ion-col center text-center>
+          <ion-col center text-end align-self-center>
             <ion-note>
-              11h ago
+              {{ message.timestamp | timeSince }}
             </ion-note>
           </ion-col>
         </ion-row>
@@ -44,20 +44,14 @@
   </div>
   <div *ngIf="viewMessageType == 'sent'">
     <ion-list>
-      <ion-card *ngFor="let message of messagesSentAsync | async">
+      <ion-card *ngFor="let message of ( messagesSentAsync | async | sort: 'desc' )">
         <ion-card-content>
           {{message.message}}
         </ion-card-content>
         <ion-row>
-          <ion-col>
-            <button ion-button icon-left clear small>
-              <ion-icon name="undo"></ion-icon>
-              <div>Reply</div>
-            </button>
-          </ion-col>
-          <ion-col center text-center>
+          <ion-col center text-end align-self-center>
             <ion-note>
-              11h ago
+              {{ message.timestamp | timeSince }}
             </ion-note>
           </ion-col>
         </ion-row>
