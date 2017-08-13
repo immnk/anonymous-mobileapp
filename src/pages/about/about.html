@@ -1,11 +1,26 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
-      About
+      Profile
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="editProfile()">
+          <ion-icon name="create"></ion-icon>
+        </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
+  <ion-card>
+    <img class="avatar" src="{{ user.photoURL }}" />
+    <div class="card-title">{{ user.displayName }}</div>
+    <div class="card-subtitle">{{ user.email }}</div>
+  </ion-card>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title class="font-size-small">&copy; Developed by Manikanta Tankala</ion-title>
+  </ion-toolbar>
+</ion-footer>
