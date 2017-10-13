@@ -30,7 +30,9 @@ export class SignupPage {
     public alertCtrl: AlertController) {
 
     this.signupForm = formBuilder.group({
-      email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+      email: ['', Validators.compose([Validators.required,
+        // EmailValidator.isValid
+      ])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
 

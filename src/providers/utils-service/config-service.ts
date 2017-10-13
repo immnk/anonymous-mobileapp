@@ -6,13 +6,15 @@ import { InjectionToken } from "@angular/core";
  */
 export interface AppConfig {
   appName: string;
+  authEndPoint: string;
 }
 
 /**
  * Actual implementation of the AppConfig is defined here
  */
 export const APP_DI_CONFIG: AppConfig = {
-  appName: 'Anonymous'
+  appName: 'Anonymous',
+  authEndPoint: 'https://anonymous-97084.appspot.com/authenticate'
 };
 
 /**

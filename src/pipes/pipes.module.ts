@@ -8,4 +8,11 @@ import { TimeSincePipe } from './../pipes/time-since/time-since';
 	exports: [SortPipe,
     TimeSincePipe]
 })
-export class PipesModule {}
+export class PipesModule {
+	static forRoot() {
+      return {
+          ngModule: PipesModule,
+          providers: []
+      };
+   }
+}

@@ -1,6 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { FirebaseApp } from 'angularfire2';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+import { APP_CONFIG_TOKEN, AppConfig } from '../utils-service/config-service';
+import { LoggerServiceProvider } from '../logger-service/logger-service';
 
 /*
   Generated class for the AuthProvider provider.
@@ -11,11 +15,39 @@ import { FirebaseApp } from 'angularfire2';
 @Injectable()
 export class AuthProvider {
 
-  constructor(private _af: FirebaseApp) {
+  private config: AppConfig;
+  constructor(private _af: FirebaseApp, private http: Http, @Inject(APP_CONFIG_TOKEN) config: AppConfig,
+    private _logger: LoggerServiceProvider) {
+    this.config = config;
   }
 
   loginUser(email: string, password: string): firebase.Promise<any> {
     return this._af.auth().signInWithEmailAndPassword(email, password);
+  }
+
+  customLogin(username: string, password: string): any {
+
+    let promise = new Promise((resolve, reject) => {
+      this.http.post(this.config.authEndPoint, { "username": username })
+        .subscribe((response) => {
+          this._logger.log("AuthProvider: customLogin - response", response);
+          if (response.status == 200 && response) {
+            let responseBody = response["_body"];
+            let token;
+            if (responseBody) {
+              token = JSON.parse(responseBody)["token"];
+              this._logger.log("token: ", token);
+              resolve(firebase.auth().signInWithCustomToken(token));
+            } else {
+              reject("Couldnt get the response");
+            }
+          } else {
+            reject("Custom auth server is not working");
+          }
+        });
+    });
+
+    return promise;
   }
 
   signupUser(email: string, password: string): firebase.Promise<any> {

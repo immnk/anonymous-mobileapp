@@ -6,7 +6,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
+import { HttpModule } from '@angular/http';
 
+import { PipesModule } from '../pipes/pipes.module';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -27,6 +29,8 @@ import { MessagingServiceProvider } from '../providers/messaging-service/messagi
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    PipesModule.forRoot(),
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(environment.firebase, "anonymous"),// imports firebase/app needed for everything
     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
